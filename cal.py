@@ -1,54 +1,67 @@
-def add(x, y):
-    return x + y
+import streamlit as st
 
-def subtract(x, y):
-    return x - y
+# Set page configuration
+st.set_page_config(page_title="Simple Calculator", page_icon="🔢", layout="centered")
 
-def multiply(x, y):
-    return x * y
+# Title
+st.title("🔢 Simple Calculator")
+st.markdown("---")
 
-def divide(x, y):
-    if y == 0:
-        return "Error: Division by zero"
-    return x / y
+# Create two columns for input
+col1, col2 = st.columns(2)
 
-def calculator():
-    print("Simple Calculator")
-    print("-" * 30)
-    print("Operations:")
-    print("1. Addition (+)")
-    print("2. Subtraction (-)")
-    print("3. Multiplication (*)")
-    print("4. Division (/)")
-    print("5. Exit")
-    print("-" * 30)
+with col1:
+    num1 = st.number_input("Enter first number:", value=0.0, format="%.2f")
+
+with col2:
+    num2 = st.number_input("Enter second number:", value=0.0, format="%.2f")
+
+# Operation selection
+operation = st.selectbox(
+    "Select operation:",
+    ["➕ Addition", "➖ Subtraction", "✖ Multiplication", "➗ Division", "📐 Power", "√ Square Root"]
+)
+
+# Calculate button
+if st.button("Calculate", type="primary", use_container_width=True):
+    result = None
+    error = None
     
-    while True:
-        choice = input("\nEnter operation (1-5): ")
-        
-        if choice == '5':
-            print("Thank you for using the calculator!")
-            break
-        
-        if choice in ['1', '2', '3', '4']:
-            try:
-                num1 = float(input("Enter first number: "))
-                num2 = float(input("Enter second number: "))
-                
-                if choice == '1':
-                    print(f"Result: {num1} + {num2} = {add(num1, num2)}")
-                elif choice == '2':
-                    print(f"Result: {num1} - {num2} = {subtract(num1, num2)}")
-                elif choice == '3':
-                    print(f"Result: {num1} * {num2} = {multiply(num1, num2)}")
-                elif choice == '4':
-                    result = divide(num1, num2)
-                    print(f"Result: {num1} / {num2} = {result}")
+    try:
+        if operation == "➕ Addition":
+            result = num1 + num2
+            st.success(f"Result: {num1} + {num2} = {result}")
             
-            except ValueError:
-                print("Invalid input! Please enter numbers only.")
-        else:
-            print("Invalid choice! Please select 1-5.")
+        elif operation == "➖ Subtraction":
+            result = num1 - num2
+            st.success(f"Result: {num1} - {num2} = {result}")
+            
+        elif operation == "✖ Multiplication":
+            result = num1 * num2
+            st.success(f"Result: {num1} × {num2} = {result}")
+            
+        elif operation == "➗ Division":
+            if num2 == 0:
+                st.error("❌ Error: Cannot divide by zero!")
+            else:
+                result = num1 / num2
+                st.success(f"Result: {num1} ÷ {num2} = {result}")
+                
+        elif operation == "📐 Power":
+            result = num1 ** num2
+            st.success(f"Result: {num1} ^ {num2} = {result}")
+            
+        elif operation == "√ Square Root":
+            if num1 < 0:
+                st.error("❌ Error: Cannot calculate square root of negative number!")
+            else:
+                result = num1 ** 0.5
+                st.success(f"Result: √{num1} = {result}")
+                st.info(f"ℹ Note: Second number is ignored for square root operation")
+                
+    except Exception as e:
+        st.error(f"❌ Error: {str(e)}")
 
-if __name__ == "__main__":
-    calculator()
+# Footer
+st.markdown("---")
+st.markdown("Made with ❤ using Streamlit")
