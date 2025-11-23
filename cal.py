@@ -1,26 +1,54 @@
-# Simple Calculator in Python
+def add(x, y):
+    return x + y
 
-print("----- Simple Calculator -----")
+def subtract(x, y):
+    return x - y
 
-# Taking input from the user
-num1 = float(input("Enter first number: "))
-op = input("Enter operator (+, -, *, /): ")
-num2 = float(input("Enter second number: "))
+def multiply(x, y):
+    return x * y
 
-# Performing calculation
-if op == "+":
-    result = num1 + num2
-elif op == "-":
-    result = num1 - num2
-elif op == "*":
-    result = num1 * num2
-elif op == "/":
-    if num2 == 0:
-        result = "Error! Division by zero."
-    else:
-        result = num1 / num2
-else:
-    result = "Invalid operator!"
+def divide(x, y):
+    if y == 0:
+        return "Error: Division by zero"
+    return x / y
 
-# Displaying result
-print("Result:", result)
+def calculator():
+    print("Simple Calculator")
+    print("-" * 30)
+    print("Operations:")
+    print("1. Addition (+)")
+    print("2. Subtraction (-)")
+    print("3. Multiplication (*)")
+    print("4. Division (/)")
+    print("5. Exit")
+    print("-" * 30)
+    
+    while True:
+        choice = input("\nEnter operation (1-5): ")
+        
+        if choice == '5':
+            print("Thank you for using the calculator!")
+            break
+        
+        if choice in ['1', '2', '3', '4']:
+            try:
+                num1 = float(input("Enter first number: "))
+                num2 = float(input("Enter second number: "))
+                
+                if choice == '1':
+                    print(f"Result: {num1} + {num2} = {add(num1, num2)}")
+                elif choice == '2':
+                    print(f"Result: {num1} - {num2} = {subtract(num1, num2)}")
+                elif choice == '3':
+                    print(f"Result: {num1} * {num2} = {multiply(num1, num2)}")
+                elif choice == '4':
+                    result = divide(num1, num2)
+                    print(f"Result: {num1} / {num2} = {result}")
+            
+            except ValueError:
+                print("Invalid input! Please enter numbers only.")
+        else:
+            print("Invalid choice! Please select 1-5.")
+
+if __name__ == "__main__":
+    calculator()
