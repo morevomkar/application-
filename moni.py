@@ -5,7 +5,6 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
 import requests
-from fredapi import Fred
 import os
 
 # Page configuration
@@ -16,7 +15,7 @@ st.set_page_config(
 )
 
 # API Configuration
-FRED_API_KEY = st.secrets.get("FRED_API_KEY", os.environ.get('FRED_API_KEY', ''))
+
 
 # Custom CSS
 st.markdown("""
