@@ -183,16 +183,7 @@ def main():
     st.title("🌍 Global Economic Indicators Dashboard")
     st.markdown("**Real-time economic data for USA, Europe, and India**")
     
-    # Check API key
-    if not FRED_API_KEY:
-        st.error("🔑 **FRED API Key Required!**")
-        st.markdown("""
-        ### Setup Instructions:
-        1. Get free API key: [FRED API](https://fred.stlouisfed.org/docs/api/api_key.html)
-        2. Add to Streamlit Secrets: `FRED_API_KEY = "your_key"`
-        3. Reboot the app
-        """)
-        st.stop()
+  
     
     # Sidebar settings
     st.sidebar.header("⚙️ Settings")
